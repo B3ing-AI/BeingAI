@@ -1,58 +1,3 @@
-[![beiengAI.online: AI-Powered Full-Stack Web Development in the Browser](./public/social_preview_index.jpg)](https://beiengAI.online)
-
-# beiengAI.online Fork by Cole Medin - oTToDev
-
-This fork of beiengAI.online (oTToDev) allows you to choose the LLM that you use for each prompt! Currently, you can use OpenAI, Anthropic, Ollama, OpenRouter, Gemini, LMStudio, Mistral, xAI, HuggingFace, DeepSeek, or Groq models - and it is easily extended to use any other model supported by the Vercel AI SDK! See the instructions below for running this locally and extending it to include more models.
-
-Check the [oTToDev Docs](https://coleam00.github.io/beiengAI.online-any-llm/) for more information.
-
-## Join the community for oTToDev!
-
-https://thinktank.ottomator.ai
-
-
-## Requested Additions - Feel Free to Contribute!
-
-- ✅ OpenRouter Integration (@coleam00)
-- ✅ Gemini Integration (@jonathands)
-- ✅ Autogenerate Ollama models from what is downloaded (@yunatamos)
-- ✅ Filter models by provider (@jasonm23)
-- ✅ Download project as ZIP (@fabwaseem)
-- ✅ Improvements to the main beiengAI.online prompt in `app\lib\.server\llm\prompts.ts` (@kofi-bhr)
-- ✅ DeepSeek API Integration (@zenith110)
-- ✅ Mistral API Integration (@ArulGandhi)
-- ✅ "Open AI Like" API Integration (@ZerxZ)
-- ✅ Ability to sync files (one way sync) to local folder (@muzafferkadir)
-- ✅ Containerize the application with Docker for easy installation (@aaronbolton)
-- ✅ Publish projects directly to GitHub (@goncaloalves)
-- ✅ Ability to enter API keys in the UI (@ali00209)
-- ✅ xAI Grok Beta Integration (@milutinke)
-- ✅ LM Studio Integration (@karrot0)
-- ✅ HuggingFace Integration (@ahsan3219)
-- ✅ BeiengAI terminal to see the output of LLM run commands (@thecodacus)
-- ✅ Streaming of code output (@thecodacus)
-- ✅ Ability to revert code to earlier version (@wonderwhy-er)
-- ✅ Cohere Integration (@hasanraiyan)
-- ✅ Dynamic model max token length (@hasanraiyan)
-- ✅ Better prompt enhancing (@SujalXplores)
-- ✅ Prompt caching (@SujalXplores)
-- ✅ Load local projects into the app (@wonderwhy-er)
-- ✅ Together Integration (@mouimet-infinisoft)
-- ✅ Mobile friendly (@qwikode)
-- ✅ Better prompt enhancing (@SujalXplores)
-- ✅ Attach images to prompts (@atrokhym)
-- ⬜ **HIGH PRIORITY** - Prevent BeiengAI from rewriting files as often (file locking and diffs)
-- ⬜ **HIGH PRIORITY** - Better prompting for smaller LLMs (code window sometimes doesn't start)
-- ⬜ **HIGH PRIORITY** - Run agents in the backend as opposed to a single model call
-- ⬜ Deploy directly to Vercel/Netlify/other similar platforms
-- ⬜ Have LLM plan the project in a MD file for better results/transparency
-- ⬜ VSCode Integration with git-like confirmations
-- ⬜ Upload documents for knowledge - UI design templates, a code base to reference coding style, etc.
-- ⬜ Voice prompting
-- ⬜ Azure Open AI API Integration
-- ⬜ Perplexity Integration
-- ⬜ Vertex AI Integration
-
 ## beiengAI.online: AI-Powered Full-Stack Web Development in the Browser
 
 beiengAI.online is an AI-powered web development agent that allows you to prompt, run, edit, and deploy full-stack applications directly from your browser—no local setup required. If you're here to build your own AI-powered web dev agent using the BeiengAI open source codebase, [click here to get started!](./CONTRIBUTING.md)
@@ -223,17 +168,3 @@ pnpm run dev
 ```
 
 This will start the Remix Vite development server. You will need Google Chrome Canary to run this locally if you use Chrome! It's an easy install and a good browser for web development anyway.
-
-## How do I contribute to oTToDev?
-
-[Please check out our dedicated page for contributing to oTToDev here!](CONTRIBUTING.md)
-
-## What are the future plans for oTToDev?
-
-[Check out our Roadmap here!](https://roadmap.sh/r/ottodev-roadmap-2ovzo)
-
-Lot more updates to this roadmap coming soon!
-
-## FAQ
-
-[Please check out our dedicated page for FAQ's related to oTToDev here!](FAQ.md)
