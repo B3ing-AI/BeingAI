@@ -353,6 +353,24 @@ const PROVIDER_LIST: ProviderInfo[] = [
     ],
     getApiKeyLink: 'https://aistudio.google.com/app/apikey',
   },
+  {
+    name: 'OpenAI',
+    staticModels: [
+      { name: 'gpt-4o-mini', label: 'GPT-4o Mini', provider: 'OpenAI', maxTokenAllowed: 8000 },
+      { name: 'gpt-4-turbo', label: 'GPT-4 Turbo', provider: 'OpenAI', maxTokenAllowed: 8000 },
+      { name: 'gpt-4', label: 'GPT-4', provider: 'OpenAI', maxTokenAllowed: 8000 },
+      { name: 'gpt-3.5-turbo', label: 'GPT-3.5 Turbo', provider: 'OpenAI', maxTokenAllowed: 8000 },
+    ],
+    getApiKeyLink: 'https://platform.openai.com/api-keys',
+  },
+  {
+    name: 'Ollama',
+    staticModels: [],
+    getDynamicModels: getOllamaModels,
+    getApiKeyLink: 'https://ollama.com/download',
+    labelForGetApiKey: 'Download Ollama',
+    icon: 'i-ph:cloud-arrow-down',
+  },
 ];
 export const DEFAULT_PROVIDER = PROVIDER_LIST[0];
 

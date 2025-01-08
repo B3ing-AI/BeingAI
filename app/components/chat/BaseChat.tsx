@@ -9,7 +9,7 @@ import { Menu } from '~/components/sidebar/Menu.client';
 import { IconButton } from '~/components/ui/IconButton';
 import { Workbench } from '~/components/workbench/Workbench.client';
 import { classNames } from '~/utils/classNames';
-import { MODEL_LIST, PROVIDER_LIST, initializeModelList } from '~/utils/constants';
+import { MODEL_LIST, PROVIDER_LIST, PROVIDER_LIST1, initializeModelList } from '~/utils/constants';
 import { Messages } from './Messages.client';
 import { SendButton } from './SendButton.client';
 import { APIKeyManager } from './APIKeyManager';
