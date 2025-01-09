@@ -16,7 +16,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
 
   return (
     <div className="flex">
-      <div className="flex border border-beiengai-elements-borderColor rounded-md overflow-hidden">
+      <div className="flex border border-bolt-elements-borderColor rounded-md overflow-hidden">
         <Button
           active={showChat}
           disabled={!canHideChat || isSmallViewport} // expand button is disabled on mobile as it's not needed
@@ -26,9 +26,9 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
             }
           }}
         >
-          <div className="i-beiengai:chat text-sm" />
+          <div className="i-bolt:chat text-sm" />
         </Button>
-        <div className="w-[1px] bg-beiengai-elements-borderColor" />
+        <div className="w-[1px] bg-bolt-elements-borderColor" />
         <Button
           active={showWorkbench}
           onClick={() => {
@@ -57,10 +57,10 @@ function Button({ active = false, disabled = false, children, onClick }: ButtonP
   return (
     <button
       className={classNames('flex items-center p-1.5', {
-        'bg-beiengai-elements-item-backgroundDefault hover:bg-beiengai-elements-item-backgroundActive text-beiengai-elements-textTertiary hover:text-beiengai-elements-textPrimary':
+        'bg-bolt-elements-item-backgroundDefault hover:bg-bolt-elements-item-backgroundActive text-bolt-elements-textTertiary hover:text-bolt-elements-textPrimary':
           !active,
-        'bg-beiengai-elements-item-backgroundAccent text-beiengai-elements-item-contentAccent': active && !disabled,
-        'bg-beiengai-elements-item-backgroundDefault text-alpha-gray-20 dark:text-alpha-white-20 cursor-not-allowed':
+        'bg-bolt-elements-item-backgroundAccent text-bolt-elements-item-contentAccent': active && !disabled,
+        'bg-bolt-elements-item-backgroundDefault text-alpha-gray-20 dark:text-alpha-white-20 cursor-not-allowed':
           disabled,
       })}
       onClick={onClick}

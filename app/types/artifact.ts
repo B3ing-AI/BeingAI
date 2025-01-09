@@ -1,4 +1,4 @@
-export interface BoltArtifactData {
+export interface BeingAIArtifactData {
   id: string;
   title: string;
   type?: string | undefined;

@@ -1,11 +1,10 @@
 import type { Message } from 'ai';
 import { toast } from 'react-toastify';
-import React from 'react';
 import { ImportFolderButton } from '~/components/chat/ImportFolderButton';
 
 export function ImportButtons(importChat: ((description: string, messages: Message[]) => Promise<void>) | undefined) {
   return (
-    <div className="flex flex-col items-center justify-center flex-1 p-4">
+    <div className="flex flex-col items-center justify-center w-auto">
       <input
         type="file"
         id="chat-import"
@@ -55,14 +54,14 @@ export function ImportButtons(importChat: ((description: string, messages: Messa
               const input = document.getElementById('chat-import');
               input?.click();
             }}
-            className="px-4 py-2 rounded-lg border border-beiengai-elements-borderColor bg-beiengai-elements-prompt-background text-beiengai-elements-textPrimary hover:bg-beiengai-elements-background-depth-3 transition-all flex items-center gap-2"
+            className="px-4 py-2 rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-prompt-background text-bolt-elements-textPrimary hover:bg-bolt-elements-background-depth-3 transition-all flex items-center gap-2"
           >
             <div className="i-ph:upload-simple" />
             Import Chat
           </button>
           <ImportFolderButton
             importChat={importChat}
-            className="px-4 py-2 rounded-lg border border-beiengai-elements-borderColor bg-beiengai-elements-prompt-background text-beiengai-elements-textPrimary hover:bg-beiengai-elements-background-depth-3 transition-all flex items-center gap-2"
+            className="px-4 py-2 rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-prompt-background text-bolt-elements-textPrimary hover:bg-bolt-elements-background-depth-3 transition-all flex items-center gap-2"
           />
         </div>
       </div>

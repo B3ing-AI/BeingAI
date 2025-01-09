@@ -8,7 +8,7 @@ export default [
       '**/dist',
       '**/node_modules',
       '**/.wrangler',
-      '**/beiengai/build',
+      '**/bolt/build',
       '**/.history',
     ],
   },

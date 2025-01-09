@@ -17,6 +17,14 @@ export interface StartAction extends BaseAction {
   type: 'start';
 }
 
-export type BoltAction = FileAction | ShellAction | StartAction;
+export type BeingAIAction = FileAction | ShellAction | StartAction;
 
-export type BoltActionData = BoltAction | BaseAction;
+export type BeingAIActionData = BeingAIAction | BaseAction;
+
+export interface ActionAlert {
+  type: string;
+  title: string;
+  description: string;
+  content: string;
+  source?: 'terminal' | 'preview'; // Add source to differentiate between terminal and preview errors
+}

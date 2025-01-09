@@ -17,6 +17,7 @@ import { renderLogger } from '~/utils/logger';
 import { EditorPanel } from './EditorPanel';
 import { Preview } from './Preview';
 import useViewport from '~/lib/hooks';
+import Cookies from 'js-cookie';
 
 interface WorkspaceProps {
   chatStarted?: boolean;
@@ -129,7 +130,7 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
       >
         <div
           className={classNames(
-            'fixed top-[calc(var(--header-height)+1.5rem)] bottom-6 w-[var(--workbench-inner-width)] mr-4 z-0 transition-[left,width] duration-200 beiengai-ease-cubic-bezier',
+            'fixed top-[calc(var(--header-height)+1.5rem)] bottom-6 w-[var(--workbench-inner-width)] mr-4 z-0 transition-[left,width] duration-200 bolt-ease-cubic-bezier',
             {
               'w-full': isSmallViewport,
               'left-0': showWorkbench && isSmallViewport,
@@ -139,8 +140,8 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
           )}
         >
           <div className="absolute inset-0 px-2 lg:px-6">
-            <div className="h-full flex flex-col bg-beiengai-elements-background-depth-2 border border-beiengai-elements-borderColor shadow-sm rounded-lg overflow-hidden">
-              <div className="flex items-center px-3 py-2 border-b border-beiengai-elements-borderColor">
+            <div className="h-full flex flex-col bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-sm rounded-lg overflow-hidden">
+              <div className="flex items-center px-3 py-2 border-b border-bolt-elements-borderColor">
                 <Slider selected={selectedView} options={sliderOptions} setSelected={setSelectedView} />
                 <div className="ml-auto" />
                 {selectedView === 'code' && (
@@ -172,7 +173,7 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
                       onClick={() => {
                         const repoName = prompt(
                           'Please enter a name for your new GitHub repository:',
-                          'beiengai-generated-project',
+                          'bolt-generated-project',
                         );
 
                         if (!repoName) {
@@ -180,21 +181,22 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
                           return;
                         }
 
-                        const githubUsername = prompt('Please enter your GitHub username:');
+                        const githubUsername = Cookies.get('githubUsername');
+                        const githubToken = Cookies.get('githubToken');
 
-                        if (!githubUsername) {
-                          alert('GitHub username is required. Push to GitHub cancelled.');
-                          return;
+                        if (!githubUsername || !githubToken) {
+                          const usernameInput = prompt('Please enter your GitHub username:');
+                          const tokenInput = prompt('Please enter your GitHub personal access token:');
+
+                          if (!usernameInput || !tokenInput) {
+                            alert('GitHub username and token are required. Push to GitHub cancelled.');
+                            return;
+                          }
+
+                          workbenchStore.pushToGitHub(repoName, usernameInput, tokenInput);
+                        } else {
+                          workbenchStore.pushToGitHub(repoName, githubUsername, githubToken);
                         }
-
-                        const githubToken = prompt('Please enter your GitHub personal access token:');
-
-                        if (!githubToken) {
-                          alert('GitHub token is required. Push to GitHub cancelled.');
-                          return;
-                        }
-
-                        workbenchStore.pushToGitHub(repoName, githubUsername, githubToken);
                       }}
                     >
                       <div className="i-ph:github-logo" />

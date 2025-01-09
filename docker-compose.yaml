@@ -1,10 +1,10 @@
 services:
   app-prod:
-    image: beiengai-ai:production
+    image: bolt-ai:production
     build:
       context: .
       dockerfile: Dockerfile
-      target: beiengai-ai-production
+      target: bolt-ai-production
     ports:
       - "5173:5173"
     env_file: ".env.local"
@@ -32,9 +32,9 @@ services:
       - production
 
   app-dev:
-    image: beiengai-ai:development
+    image: bolt-ai:development
     build:
-      target: beiengai-ai-development
+      target: bolt-ai-development
     environment:
       - NODE_ENV=development
       - VITE_HMR_PROTOCOL=ws

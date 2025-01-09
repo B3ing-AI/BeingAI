@@ -1,5 +1,7 @@
-import { map } from 'nanostores';
+import { atom, map } from 'nanostores';
 import { workbenchStore } from './workbench';
+import { PROVIDER_LIST } from '~/utils/constants';
+import type { IProviderConfig } from '~/types/model';
 
 export interface Shortcut {
   key: string;
@@ -15,9 +17,10 @@ export interface Shortcuts {
   toggleTerminal: Shortcut;
 }
 
-export interface Settings {
-  shortcuts: Shortcuts;
-}
+export const URL_CONFIGURABLE_PROVIDERS = ['Ollama', 'LMStudio', 'OpenAILike'];
+export const LOCAL_PROVIDERS = ['OpenAILike', 'LMStudio', 'Ollama'];
+
+export type ProviderSetting = Record<string, IProviderConfig>;
 
 export const shortcutsStore = map<Shortcuts>({
   toggleTerminal: {
@@ -27,13 +30,29 @@ export const shortcutsStore = map<Shortcuts>({
   },
 });
 
-export const settingsStore = map<Settings>({
-  shortcuts: shortcutsStore.get(),
+const initialProviderSettings: ProviderSetting = {};
+PROVIDER_LIST.forEach((provider) => {
+  initialProviderSettings[provider.name] = {
+    ...provider,
+    settings: {
+      enabled: true,
+    },
+  };
 });
 
-shortcutsStore.subscribe((shortcuts) => {
-  settingsStore.set({
-    ...settingsStore.get(),
-    shortcuts,
-  });
-});
+//TODO: need to create one single map for all these flags
+
+export const providersStore = map<ProviderSetting>(initialProviderSettings);
+
+export const isDebugMode = atom(false);
+
+export const isEventLogsEnabled = atom(false);
+
+export const isLocalModelsEnabled = atom(true);
+
+export const promptStore = atom<string>('default');
+
+export const latestBranchStore = atom(false);
+
+export const autoSelectStarterTemplate = atom(false);
+export const enableContextOptimizationStore = atom(false);

@@ -10,27 +10,26 @@ export function Header() {
 
   return (
     <header
-      className={classNames(
-        'flex items-center bg-beiengai-elements-background-depth-1 p-5 border-b h-[var(--header-height)]',
-        {
-          'border-transparent': !chat.started,
-          'border-beiengai-elements-borderColor': chat.started,
-        },
-      )}
+      className={classNames('flex items-center p-5 border-b h-[var(--header-height)]', {
+        'border-transparent': !chat.started,
+        'border-bolt-elements-borderColor': chat.started,
+      })}
     >
-      <div className="flex items-center gap-2 z-logo text-beiengai-elements-textPrimary cursor-pointer">
+      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
+        {/* <div tabIndex="0" style={{ transform: 'none' }}>
+          <img src="../../../icons/logo.gif" alt="logo" height={55} width={55} />
+        </div> */}
         <a href="/" className="text-2xl font-semibold text-accent flex items-center">
-          {/* <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-            BeingAI
-          </span> */}
+          {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
           <div tabIndex={0} style={{ transform: 'none' }}>
-            <img src="../../../icons/beirngAILogo.png" alt="logo" style={{height:45}} />
+            <img src="../../../icons/beirngAILogo.png" alt="logo" style={{ height: 45 }} />
           </div>
+          <img />
         </a>
       </div>
       {chat.started && ( // Display ChatDescription and HeaderActionButtons only when the chat has started.
         <>
-          <span className="flex-1 px-4 truncate text-center text-beiengai-elements-textPrimary">
+          <span className="flex-1 px-4 truncate text-center text-bolt-elements-textPrimary">
             <ClientOnly>{() => <ChatDescription />}</ClientOnly>
           </span>
           <ClientOnly>

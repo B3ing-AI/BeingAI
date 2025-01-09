@@ -171,10 +171,10 @@ function getEditorTheme(settings: EditorSettings) {
     '.cm-tooltip.cm-readonly-tooltip': {
       padding: '4px',
       whiteSpace: 'nowrap',
-      backgroundColor: 'var(--beiengai-elements-bg-depth-2)',
-      borderColor: 'var(--beiengai-elements-borderColorActive)',
+      backgroundColor: 'var(--bolt-elements-bg-depth-2)',
+      borderColor: 'var(--bolt-elements-borderColorActive)',
       '& .cm-tooltip-arrow:before': {
-        borderTopColor: 'var(--beiengai-elements-borderColorActive)',
+        borderTopColor: 'var(--bolt-elements-borderColorActive)',
       },
       '& .cm-tooltip-arrow:after': {
         borderTopColor: 'transparent',

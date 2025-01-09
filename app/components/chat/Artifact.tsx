@@ -52,17 +52,17 @@ export const Artifact = memo(({ messageId }: ArtifactProps) => {
     if (actions.length !== 0 && artifact.type === 'bundled') {
       const finished = !actions.find((action) => action.status !== 'complete');
 
-      if (finished != allActionFinished) {
+      if (allActionFinished !== finished) {
         setAllActionFinished(finished);
       }
     }
   }, [actions]);
 
   return (
-    <div className="artifact border border-beiengai-elements-borderColor flex flex-col overflow-hidden rounded-lg w-full transition-border duration-150">
+    <div className="artifact border border-bolt-elements-borderColor flex flex-col overflow-hidden rounded-lg w-full transition-border duration-150">
       <div className="flex">
         <button
-          className="flex items-stretch bg-beiengai-elements-artifacts-background hover:bg-beiengai-elements-artifacts-backgroundHover w-full overflow-hidden"
+          className="flex items-stretch bg-bolt-elements-artifacts-background hover:bg-bolt-elements-artifacts-backgroundHover w-full overflow-hidden"
           onClick={() => {
             const showWorkbench = workbenchStore.showWorkbench.get();
             workbenchStore.showWorkbench.set(!showWorkbench);
@@ -77,15 +77,15 @@ export const Artifact = memo(({ messageId }: ArtifactProps) => {
                   <div className={'i-svg-spinners:90-ring-with-bg'} style={{ fontSize: '2rem' }}></div>
                 )}
               </div>
-              <div className="bg-beiengai-elements-artifacts-borderColor w-[1px]" />
+              <div className="bg-bolt-elements-artifacts-borderColor w-[1px]" />
             </>
           )}
           <div className="px-5 p-3.5 w-full text-left">
-            <div className="w-full text-beiengai-elements-textPrimary font-medium leading-5 text-sm">{artifact?.title}</div>
-            <div className="w-full w-full text-beiengai-elements-textSecondary text-xs mt-0.5">Click to open Workbench</div>
+            <div className="w-full text-bolt-elements-textPrimary font-medium leading-5 text-sm">{artifact?.title}</div>
+            <div className="w-full w-full text-bolt-elements-textSecondary text-xs mt-0.5">Click to open Workbench</div>
           </div>
         </button>
-        <div className="bg-beiengai-elements-artifacts-borderColor w-[1px]" />
+        <div className="bg-bolt-elements-artifacts-borderColor w-[1px]" />
         <AnimatePresence>
           {actions.length && artifact.type !== 'bundled' && (
             <motion.button
@@ -93,7 +93,7 @@ export const Artifact = memo(({ messageId }: ArtifactProps) => {
               animate={{ width: 'auto' }}
               exit={{ width: 0 }}
               transition={{ duration: 0.15, ease: cubicEasingFn }}
-              className="bg-beiengai-elements-artifacts-background hover:bg-beiengai-elements-artifacts-backgroundHover"
+              className="bg-bolt-elements-artifacts-background hover:bg-bolt-elements-artifacts-backgroundHover"
               onClick={toggleActions}
             >
               <div className="p-4">
@@ -112,9 +112,9 @@ export const Artifact = memo(({ messageId }: ArtifactProps) => {
             exit={{ height: '0px' }}
             transition={{ duration: 0.15 }}
           >
-            <div className="bg-beiengai-elements-artifacts-borderColor h-[1px]" />
+            <div className="bg-bolt-elements-artifacts-borderColor h-[1px]" />
 
-            <div className="p-5 text-left bg-beiengai-elements-actions-background">
+            <div className="p-5 text-left bg-bolt-elements-actions-background">
               <ActionList actions={actions} />
             </div>
           </motion.div>
@@ -201,7 +201,7 @@ const ActionList = memo(({ actions }: ActionListProps) => {
                   <div>
                     Create{' '}
                     <code
-                      className="bg-beiengai-elements-artifacts-inlineCode-background text-beiengai-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-md text-beiengai-elements-item-contentAccent hover:underline cursor-pointer"
+                      className="bg-bolt-elements-artifacts-inlineCode-background text-bolt-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-md text-bolt-elements-item-contentAccent hover:underline cursor-pointer"
                       onClick={() => openArtifactInWorkbench(action.filePath)}
                     >
                       {action.filePath}
@@ -242,19 +242,19 @@ const ActionList = memo(({ actions }: ActionListProps) => {
 function getIconColor(status: ActionState['status']) {
   switch (status) {
     case 'pending': {
-      return 'text-beiengai-elements-textTertiary';
+      return 'text-bolt-elements-textTertiary';
     }
     case 'running': {
-      return 'text-beiengai-elements-loader-progress';
+      return 'text-bolt-elements-loader-progress';
     }
     case 'complete': {
-      return 'text-beiengai-elements-icon-success';
+      return 'text-bolt-elements-icon-success';
     }
     case 'aborted': {
-      return 'text-beiengai-elements-textSecondary';
+      return 'text-bolt-elements-textSecondary';
     }
     case 'failed': {
-      return 'text-beiengai-elements-icon-error';
+      return 'text-bolt-elements-icon-error';
     }
     default: {
       return undefined;

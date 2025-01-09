@@ -19,19 +19,3 @@ export interface OllamaModel {
 export interface OllamaApiResponse {
   models: OllamaModel[];
 }
-
-export interface ModelInfo {
-  name: string;
-  label: string;
-  provider: string;
-  maxTokenAllowed: number;
-}
-
-export interface ProviderInfo {
-  staticModels: ModelInfo[];
-  name: string;
-  getDynamicModels?: () => Promise<ModelInfo[]>;
-  getApiKeyLink?: string;
-  labelForGetApiKey?: string;
-  icon?: string;
-}

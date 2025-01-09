@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { type ChatHistoryItem } from '~/lib/persistence';
 import WithTooltip from '~/components/ui/Tooltip';
 import { useEditChatDescription } from '~/lib/hooks';
+import { forwardRef, type ForwardedRef } from 'react';
 
 interface HistoryItemProps {
   item: ChatHistoryItem;
@@ -27,7 +28,7 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
     <form onSubmit={handleSubmit} className="flex-1 flex items-center">
       <input
         type="text"
-        className="flex-1 bg-beiengai-elements-background-depth-1 text-beiengai-elements-textPrimary rounded px-2 mr-2"
+        className="flex-1 bg-bolt-elements-background-depth-1 text-bolt-elements-textPrimary rounded px-2 mr-2"
         autoFocus
         value={currentDescription}
         onChange={handleChange}
@@ -36,7 +37,7 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
       />
       <button
         type="submit"
-        className="i-ph:check scale-110 hover:text-beiengai-elements-item-contentAccent"
+        className="i-ph:check scale-110 hover:text-bolt-elements-item-contentAccent"
         onMouseDown={handleSubmit}
       />
     </form>
@@ -45,8 +46,8 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
   return (
     <div
       className={classNames(
-        'group rounded-md text-beiengai-elements-textSecondary hover:text-beiengai-elements-textPrimary hover:bg-beiengai-elements-background-depth-3 overflow-hidden flex justify-between items-center px-2 py-1',
-        { '[&&]:text-beiengai-elements-textPrimary bg-beiengai-elements-background-depth-3': isActiveChat },
+        'group rounded-md text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary hover:bg-bolt-elements-background-depth-3 overflow-hidden flex justify-between items-center px-2 py-1',
+        { '[&&]:text-bolt-elements-textPrimary bg-bolt-elements-background-depth-3': isActiveChat },
       )}
     >
       {editing ? (
@@ -56,11 +57,11 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
           {currentDescription}
           <div
             className={classNames(
-              'absolute right-0 z-1 top-0 bottom-0 bg-gradient-to-l from-beiengai-elements-background-depth-2 group-hover:from-beiengai-elements-background-depth-3 box-content pl-3 to-transparent w-10 flex justify-end group-hover:w-22 group-hover:from-99%',
-              { 'from-beiengai-elements-background-depth-3 w-10 ': isActiveChat },
+              'absolute right-0 z-1 top-0 bottom-0 bg-gradient-to-l from-bolt-elements-background-depth-2 group-hover:from-bolt-elements-background-depth-3 box-content pl-3 to-transparent w-10 flex justify-end group-hover:w-22 group-hover:from-99%',
+              { 'from-bolt-elements-background-depth-3 w-10 ': isActiveChat },
             )}
           >
-            <div className="flex items-center p-1 text-beiengai-elements-textSecondary opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="flex items-center p-1 text-bolt-elements-textSecondary opacity-0 group-hover:opacity-100 transition-opacity">
               <ChatActionButton
                 toolTipContent="Export chat"
                 icon="i-ph:download-simple"
@@ -88,7 +89,7 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
                 <ChatActionButton
                   toolTipContent="Delete chat"
                   icon="i-ph:trash"
-                  className="[&&]:hover:text-beiengai-elements-button-danger-text"
+                  className="[&&]:hover:text-bolt-elements-button-danger-text"
                   onClick={(event) => {
                     event.preventDefault();
                     onDelete?.(event);
@@ -103,25 +104,31 @@ export function HistoryItem({ item, onDelete, onDuplicate, exportChat }: History
   );
 }
 
-const ChatActionButton = ({
-  toolTipContent,
-  icon,
-  className,
-  onClick,
-}: {
-  toolTipContent: string;
-  icon: string;
-  className?: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  btnTitle?: string;
-}) => {
-  return (
-    <WithTooltip tooltip={toolTipContent}>
-      <button
-        type="button"
-        className={`scale-110 mr-2 hover:text-beiengai-elements-item-contentAccent ${icon} ${className ? className : ''}`}
-        onClick={onClick}
-      />
-    </WithTooltip>
-  );
-};
+const ChatActionButton = forwardRef(
+  (
+    {
+      toolTipContent,
+      icon,
+      className,
+      onClick,
+    }: {
+      toolTipContent: string;
+      icon: string;
+      className?: string;
+      onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+      btnTitle?: string;
+    },
+    ref: ForwardedRef<HTMLButtonElement>,
+  ) => {
+    return (
+      <WithTooltip tooltip={toolTipContent}>
+        <button
+          ref={ref}
+          type="button"
+          className={`scale-110 mr-2 hover:text-bolt-elements-item-contentAccent ${icon} ${className ? className : ''}`}
+          onClick={onClick}
+        />
+      </WithTooltip>
+    );
+  },
+);

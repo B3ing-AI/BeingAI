@@ -1,5 +1,5 @@
-import type { ActionType, BoltAction, BoltActionData, FileAction, ShellAction } from '~/types/actions';
-import type { BoltArtifactData } from '~/types/artifact';
+import type { ActionType, BeingAIAction, BeingAIActionData, FileAction, ShellAction } from '~/types/actions';
+import type { BeingAIArtifactData } from '~/types/artifact';
 import { createScopedLogger } from '~/utils/logger';
 import { unreachable } from '~/utils/unreachable';
 
@@ -10,7 +10,7 @@ const ARTIFACT_ACTION_TAG_CLOSE = '</boltAction>';
 
 const logger = createScopedLogger('MessageParser');
 
-export interface ArtifactCallbackData extends BoltArtifactData {
+export interface ArtifactCallbackData extends BeingAIArtifactData {
   messageId: string;
 }
 
@@ -18,7 +18,7 @@ export interface ActionCallbackData {
   artifactId: string;
   messageId: string;
   actionId: string;
-  action: BoltAction;
+  action: BeingAIAction;
 }
 
 export type ArtifactCallback = (data: ArtifactCallbackData) => void;
@@ -47,11 +47,23 @@ interface MessageState {
   position: number;
   insideArtifact: boolean;
   insideAction: boolean;
-  currentArtifact?: BoltArtifactData;
-  currentAction: BoltActionData;
+  currentArtifact?: BeingAIArtifactData;
+  currentAction: BeingAIActionData;
   actionId: number;
 }
 
+function cleanoutMarkdownSyntax(content: string) {
+  const codeBlockRegex = /^\s*```\w*\n([\s\S]*?)\n\s*```\s*$/;
+  const match = content.match(codeBlockRegex);
+
+  // console.log('matching', !!match, content);
+
+  if (match) {
+    return match[1]; // Remove common leading 4-space indent
+  } else {
+    return content;
+  }
+}
 export class StreamingMessageParser {
   #messages = new Map<string, MessageState>();
 
@@ -95,6 +107,11 @@ export class StreamingMessageParser {
             let content = currentAction.content.trim();
 
             if ('type' in currentAction && currentAction.type === 'file') {
+              // Remove markdown code block syntax if present and file is not markdown
+              if (!currentAction.filePath.endsWith('.md')) {
+                content = cleanoutMarkdownSyntax(content);
+              }
+
               content += '\n';
             }
 
@@ -111,7 +128,7 @@ export class StreamingMessageParser {
                */
               actionId: String(state.actionId - 1),
 
-              action: currentAction as BoltAction,
+              action: currentAction as BeingAIAction,
             });
 
             state.insideAction = false;
@@ -120,7 +137,11 @@ export class StreamingMessageParser {
             i = closeIndex + ARTIFACT_ACTION_TAG_CLOSE.length;
           } else {
             if ('type' in currentAction && currentAction.type === 'file') {
-              const content = input.slice(i);
+              let content = input.slice(i);
+
+              if (!currentAction.filePath.endsWith('.md')) {
+                content = cleanoutMarkdownSyntax(content);
+              }
 
               this._options.callbacks?.onActionStream?.({
                 artifactId: currentArtifact.id,
@@ -152,7 +173,7 @@ export class StreamingMessageParser {
                 artifactId: currentArtifact.id,
                 messageId,
                 actionId: String(state.actionId++),
-                action: state.currentAction as BoltAction,
+                action: state.currentAction as BeingAIAction,
               });
 
               i = actionEndIndex + 1;
@@ -209,7 +230,7 @@ export class StreamingMessageParser {
                 id: artifactId,
                 title: artifactTitle,
                 type,
-              } satisfies BoltArtifactData;
+              } satisfies BeingAIArtifactData;
 
               state.currentArtifact = currentArtifact;
 
